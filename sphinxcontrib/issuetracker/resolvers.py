@@ -216,8 +216,9 @@ def lookup_redmine_issue(app, tracker_config, issue_id):
         except redmine_exceptions.ResourceNotFoundError:
             # requested issue number not found
             return None
+        is_closed = str(issue.status).title() == "Closed"
         return Issue(id=issue_id, title=issue.subject,
-                     closed=issue.status is "Closed",
+                     closed=is_closed,
                      url=issue.url)
 
 BUILTIN_ISSUE_TRACKERS = {
